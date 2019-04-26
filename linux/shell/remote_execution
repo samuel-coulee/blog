@@ -1,0 +1,20 @@
+# 远程连接时自动输入密码
+
+
+## 创建脚本，命名为‘exp’并赋执行权限
+#!/usr/bin/expect
+
+set timeout 10
+set cmd [lrange $argv 1 end]
+set password [lindex $argv 0]
+
+eval spawn $cmd
+expect "assword:"
+send "$password\r";
+interact
+
+
+## 用法：
+./exp "xxxxxx" scp ./a.out xyz@xx.xxx.xxx.xxx:/home/xyz
+./exp "xxxxxx" ssh xyz@xx.xxx.xxx.xxx "cat /home/a.out/"
+
